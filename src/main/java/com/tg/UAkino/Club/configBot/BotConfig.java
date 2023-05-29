@@ -9,15 +9,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @Configuration
 @EnableScheduling
 @Data
-@PropertySource("application.properties")
+@PropertySource("application.properties") //підключення файла з найсторйками
 public class BotConfig {
 
-    @Value("${bot.name}")
+    @Value("${bot.name}")  //присвоєння змінні значення з файлу з настройками
     String botName;
 
-    @Value("${bot.token}")
+    @Value("${bot.token}")  //присвоєння змінні значення з файлу з настройками
     String token;
 
-    @Value("${bot.owner}")
+    @Value("${bot.owner}")  //присвоєння змінні значення з файлу з настройками
     Long ownerId;
 }

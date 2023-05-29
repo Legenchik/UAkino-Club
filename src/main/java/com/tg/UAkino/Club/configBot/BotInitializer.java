@@ -19,10 +19,10 @@ import java.io.IOException;
 @Component
 public class BotInitializer {
 
-    @Autowired
-    kino bot;
+    @Autowired //Анотація для створення конструкції для зміної kino bot;
+    kino bot; //змінна для регистрациї бота
 
-    @EventListener({ContextRefreshedEvent.class})
+    @EventListener({ContextRefreshedEvent.class}) //ивент для запуску бота після старту Spring boot, також з обработчиком помилок
     public void init() throws TelegramApiException {
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
         try {

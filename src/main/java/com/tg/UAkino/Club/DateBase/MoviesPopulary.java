@@ -5,11 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-@Getter
-@Setter
-@Entity(name = "MoviesPopulary")
+@Getter //Антотація для створення конструкцій Get, створить після того як запуститься проект
+@Setter //Антотація для створення конструкцій Set, створить після того як запуститься проект
+@Entity(name = "MoviesPopulary")  //Назва для таблиці в БД
 public class MoviesPopulary {
 
+
+    //Змінні яку будуть відображати та для хапису в БД
     @Id
     private Long MovieID;
 
