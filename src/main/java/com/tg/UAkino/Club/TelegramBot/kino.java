@@ -40,6 +40,7 @@ public class kino extends TelegramLongPollingBot {
         this.config = config;
     }
 
+
     @Override
     public String getBotUsername() {
         return config.getBotName();
@@ -62,16 +63,25 @@ public class kino extends TelegramLongPollingBot {
                 case "/start":
                     Head(message);
                     break;
+                case "/parser":
+                    parser.parseJsonFilms();// НЕЗАПУСКАТЬ СКРИПТ
+                    ParserP.parseJsonPopulary();// НЕЗАПУСКАТЬ СКРИПТ
+                    break;
                 case"Рандомний":
                     RandomaiserKino(chatId);
                     break;
                 case"Популярний":
                     inlineKeyboard.ChosenPopulary(chatId);
                     break;
+                case"За назвою":
+                    sendMessage(chatId,"Введіть назву,пошук працює завжди можна не нажимати кнопку");
+                    break;
                 default:
+                    SearchKino(chatId,messageText);
+
                     //parser.parseJson();// НЕЗАПУСКАТЬ СКРИПТ
                     //ParserP.parseJsonPopulary();// НЕЗАПУСКАТЬ СКРИПТ
-                    sendMovieByCountry(chatId,"Япония",1);
+                    //sendMovieByCountry(chatId,"Япония",1);
             }
         }else if(update.hasCallbackQuery()) {
             String callbackDataSTR = update.getCallbackQuery().getData().toString();
@@ -422,6 +432,25 @@ public class kino extends TelegramLongPollingBot {
                         movie.getUrl();
                 sendMessage(chatId,toSend);
             }
+        }
+    }
+
+    private void SearchKino(long chatId,String Name){
+        boolean check=false;
+        var movies = resp.findAll();
+        for(Movies movie:movies){
+            if(Name.contains(movie.getName())){
+                String toSend="Назва фільму: "+movie.getName()+"\n"+
+                        "Країна: "+movie.getCountry()+"\n"+
+                        "Рік: "+movie.getYear()+"\n"+
+                        "Жанр: "+movie.getZanr()+"\n"+
+                        movie.getUrl();
+                sendMessage(chatId,toSend);
+                check=true;
+            }
+        }
+        if(check==false){
+            sendMessage(chatId,"Не зайшли спробуйте ще раз, змініть назву");
         }
     }
 
